@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 style="text-align: center">Update Student</h1>
+<form th:action="@{/students/update/__${id}__}" method="post" th:object="${student}">
+    <table border="1" style="margin: auto;width: 500px;text-align: center">
+        <tr>
+            <th>Name</th>
+            <th><input type="text" th:field="*{name}"></th>
+        </tr>
+        <tr>
+            <th>Point</th>
+            <th><input type="text" th:field="*{point}"></th>
+        </tr>
+        <tr>
+            <th>Age</th>
+            <th><input type="text" th:field="*{age}"></th>
+        </tr>
+        <tr>
+            <th>select class</th>
+            <th>
+                <select name="classes">
+                    <option th:each="c : ${classes}"
+                            th:value="${c.id}"
+                            th:text="${c.name}"
+                            th:selected="(${c.id} == *{classes.id})"></option>
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+
+</form>
+</body>
+</html>
