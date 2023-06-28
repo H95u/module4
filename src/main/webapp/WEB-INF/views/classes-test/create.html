@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>List Class</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.deleteClass').click(function (event) {
+
+                let a = $(this);
+                let id = a.attr("href");
+
+                $.ajax({
+                    type: "DELETE",
+                    url: `/api/classes/${id}`,
+                    success: function () {
+                        a.parent().parent().remove();
+                    }
+                });
+                event.preventDefault();
+            })
+        });
+
+        function addNewClasses(event) {
+            //lay du lieu
+            let name = $('#name').val();
+
+            let newClasses = {
+                name: name
+            };
+            // goi ajax
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                data: JSON.stringify(newClasses),
+                //tên API
+                url: "/api/classes",
+                //xử lý khi thành công
+                success: showAll
+
+            });
+            //chặn sự kiện mặc định của thẻ
+            event.preventDefault();
+        }
+
+        function updateClasses(event) {
+            //lay du lieu
+            let name = $('#nameUpdate').val();
+            let a = $(this);
+            let id = a.attr("href");
+
+            let newClasses = {
+                name: name
+            };
+            // goi ajax
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "PUT",
+                data: JSON.stringify(newClasses),
+                //tên API
+                url: `/api/classes/${id}`,
+                //xử lý khi thành công
+                success: showAll
+
+            });
+            //chặn sự kiện mặc định của thẻ
+            event.preventDefault();
+        }
+
+        function getClasses(aClasses) {
+            return `<tr><td>${aClasses.name}</td>
+<td><a class="deleteClass" href="${aClasses.id}">Delete</a></td></tr>`
+        }
+
+        function showAll() {
+            $.ajax({
+                type: "GET",
+                url: "/api/classes",
+                success: function (data) {
+                    let content = '<table><tr><td>Name</td>' +
+                        '<td>Action</td></tr>';
+                    for (let i = 0; i < data.length; i++) {
+                        content += getClasses(data[i]);
+                    }
+                    content += `</table>`
+                    document.getElementById("classesList").innerHTML = content;
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<form id="add-classes">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" id="name" placeholder="name"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Add" onclick="addNewClasses()"></td>
+        </tr>
+    </table>
+</form>
+<button onclick="showAll()">Show All</button>
+<div id="classesList"></div>
+</body>
+</html>

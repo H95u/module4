@@ -14,6 +14,9 @@ public class StudentService implements IStudentService {
     @Autowired
     private IStudentRepository studentRepository;
 
+    public List<Student> findAllStudent(){
+        return studentRepository.findAllByOrderByPointDesc();
+    }
     @Override
     public Page<Student> findAll(Pageable pageable) {
         return studentRepository.findAll(pageable);
@@ -25,8 +28,8 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public void save(Student student) {
-        studentRepository.save(student);
+    public Student save(Student student) {
+        return studentRepository.save(student);
     }
 
     @Override

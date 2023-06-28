@@ -10,7 +10,7 @@ public interface IClassesService{
 
     Classes findById(Long id);
 
-    void save(Classes classes);
+    Classes save(Classes classes);
 
     void remove(Long id);
 

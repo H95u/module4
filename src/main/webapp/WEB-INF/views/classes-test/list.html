@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Smartphone List</h1>
+<table id="smartphoneList">
+  <tr>
+    <td>Producer</td>
+    <td>Model</td>
+    <td>Price</td>
+    <td>Delete</td>
+  </tr>
+  <th:block th:each="c: ${classes}">
+    <tr>
+      <td th:text="${c.name}"></td>
+      <td><a class="deleteSmartphone" th:href="${c.getId()}">Delete</a></td>
+    </tr>
+  </th:block>
+</table>
+</body>
+</html>

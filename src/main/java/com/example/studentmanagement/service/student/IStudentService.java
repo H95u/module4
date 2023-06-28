@@ -11,7 +11,7 @@ public interface IStudentService {
 
     Student findById(Long id);
 
-    void save(Student student);
+    Student save(Student student);
 
     void remove(Long id);
 

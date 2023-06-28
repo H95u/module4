@@ -23,8 +23,8 @@ public class ClassesService implements IClassesService {
     }
 
     @Override
-    public void save(Classes classes) {
-        classesRepository.save(classes);
+    public Classes save(Classes classes) {
+        return classesRepository.save(classes);
     }
 
     @Override
